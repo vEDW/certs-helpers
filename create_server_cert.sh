@@ -13,7 +13,7 @@ echo
 echo "Enter ip address for ${HOSTNAME}"
 read -r HOST_IP
 
-./easyrsa --batch --req-cn=example.org gen-req "${HOSTNAME}" nopass
+./easyrsa --batch --req-cn="${HOSTNAME}" gen-req "${HOSTNAME}" nopass
 ./easyrsa --batch --subject-alt-name="DNS:${HOSTNAME},IP:${HOST_IP}"  \
     sign-req server "${HOSTNAME}"
 
