@@ -19,8 +19,44 @@ if [[ -e ../EasyRSA/pki ]]; then
 fi
 
 # create vars file
+
+
+echo "Enter Country Code [US]"
+read -r EASYRSA_REQ_COUNTRY
+echo
+echo "Enter Province Code [California]"
+read -r EASYRSA_REQ_PROVINCE
+echo
+echo "Enter City Code [San Francisco]"
+read -r EASYRSA_REQ_CITY
+echo
+echo "Enter ORG Code [MyORG]"
+read -r EASYRSA_REQ_ORG
+echo
+echo "Enter email Code [spam@myorg.com]"
+read -r EASYRSA_REQ_EMAIL
+echo
+echo "Enter Organisation Unit Code [Engineering]"
+read -r EASYRSA_REQ_OU
+echo
+
+
+# init Easy-RSA
 cd ../EasyRSA
 ./easyrsa init-pki
+
+echo "" >> pki/vars
+
+
+echo 'set_var EASYRSA_DN	"org"'  >> pki/vars
+
+echo 'set_var EASYRSA_REQ_COUNTRY	"'${EASYRSA_REQ_COUNTRY}'"' >> pki/vars
+echo 'set_var EASYRSA_REQ_PROVINCE	"'${EASYRSA_REQ_PROVINCE}'"' >> pki/vars
+echo 'set_var EASYRSA_REQ_CITY	"'${EASYRSA_REQ_CITY}'"' >> pki/vars
+echo 'set_var EASYRSA_REQ_ORG	"'${EASYRSA_REQ_ORG}'"' >> pki/vars
+echo 'set_var EASYRSA_REQ_EMAIL	"'${EASYRSA_REQ_EMAIL}'"' >> pki/vars
+echo 'set_var EASYRSA_REQ_OU		"'${EASYRSA_REQ_OU}'"' >> pki/vars
+
 ./easyrsa gen-dh
 ./easyrsa --batch build-ca nopass
 
