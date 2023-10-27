@@ -18,4 +18,8 @@ read -r HOST_IP
     sign-req server "${HOSTNAME}"
 
 #openssl rsa -in pki/private/${HOSTNAME}.key 
-cat pki/private/${HOSTNAME}.key  pki/issued/${HOSTNAME}.crt pki/ca.crt >> ${HOSTNAME}.pem
+
+cat pki/issued/${HOSTNAME}.crt | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' >> ${HOSTNAME}.pem
+cat pki/private/${HOSTNAME}.key | sed -ne '/-BEGIN PRIVATE KEY-/,/-END PRIVATE KEY-/p' >> ${HOSTNAME}.pem
+cat pki/ca.crt | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' >> ${HOSTNAME}.pem
+cat ${HOSTNAME}.pem

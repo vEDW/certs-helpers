@@ -65,3 +65,5 @@ echo 'set_var EASYRSA_REQ_OU		"'${EASYRSA_REQ_OU}'"' >> pki/vars
 # easyrsa --batch --req-cn=example.org gen-req example.org nopass
 # easyrsa --batch --subject-alt-name='DNS:example.org,DNS:www.example.org'  \
 #     sign-req server example.org./eas  
+
+openssl x509 -in pki/ca.crt -out pki/$HOSTNAME-ca.pem -text
